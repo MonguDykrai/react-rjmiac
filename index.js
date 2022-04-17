@@ -20,9 +20,15 @@ const App = () => {
         now,
         type
       ) {
-        console.log({ id });
-        console.log(now, type);
-        console.log(now.format('HHmm'), type);
+        const { id } = this;
+        // console.log({ id });
+        // console.log(now, type);
+        // console.log(now.format('HHmm'), type);
+        console.log({
+          id,
+          formattedTime: now.format('HHmm'),
+          type,
+        });
         return {
           disabledHours: () => {
             return [];
