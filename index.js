@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './index.css';
@@ -10,16 +10,15 @@ import { v4 as uuidv4 } from 'uuid';
 const App = () => {
   const [values, setValues] = useState([]);
 
-  useEffect(() => {
-    const id = uuidv4();
-    const value = {
-      id,
-      moments: [moment('0000', 'HHmm'), moment('2359', 'HHmm')],
-      disabledTime: function (
+  const addValue = useCallback(
+    (moments = [moment('0330', 'HHmm'), moment('0420', 'HHmm')]) => {
+      const id = uuidv4();
+      const disabledTime = function (
         // currentTime
         now,
         type
       ) {
+        debugger;
         const { id } = this;
         // console.log({ id });
         // console.log(now, type);
@@ -38,35 +37,78 @@ const App = () => {
             return [];
           },
         };
-      }.bind({ id }),
-    };
-    setValues([
-      ...values,
-      value,
-      // {
-      //   id: uuidv4(),
-      //   moments: [moment('0000', 'HHmm'), moment('2359', 'HHmm')],
-      //   // moments: [],
-      //   disabledTime: function (
-      //     // currentTime
-      //     now,
-      //     type
-      //   ) {
-      //     console.log(now, type);
-      //     console.log(now.format('HHmm'), type);
-      //     return {
-      //       disabledHours: () => {
-      //         return [];
-      //       },
-      //       disabledMinutes: (selectedHour) => {
-      //         // console.log(selectedHour);
-      //         return [];
-      //       },
-      //     };
-      //   },
-      // },
-    ]);
+      }.bind({ id });
+      const value = {
+        id,
+        moments,
+        disabledTime,
+      };
+      setValues([...values, value]);
+    },
+    [values, setValues, uuidv4, moment]
+  );
+
+  useEffect(() => {
+    addValue([moment('0000', 'HHmm'), moment('2359', 'HHmm')]);
   }, []);
+
+  // useEffect(() => {
+  //   // const id = uuidv4();
+  //   // const value = {
+  //   //   id,
+  //   //   moments: [moment('0000', 'HHmm'), moment('2359', 'HHmm')],
+  //   //   disabledTime: function (
+  //   //     // currentTime
+  //   //     now,
+  //   //     type
+  //   //   ) {
+  //   //     const { id } = this;
+  //   //     // console.log({ id });
+  //   //     // console.log(now, type);
+  //   //     // console.log(now.format('HHmm'), type);
+  //   //     console.log({
+  //   //       id,
+  //   //       formattedTime: now.format('HHmm'),
+  //   //       type,
+  //   //     });
+  //   //     return {
+  //   //       disabledHours: () => {
+  //   //         return [];
+  //   //       },
+  //   //       disabledMinutes: (selectedHour) => {
+  //   //         // console.log(selectedHour);
+  //   //         return [];
+  //   //       },
+  //   //     };
+  //   //   }.bind({ id }),
+  //   // };
+  //   setValues([
+  //     ...values,
+  //     value,
+  //     // {
+  //     //   id: uuidv4(),
+  //     //   moments: [moment('0000', 'HHmm'), moment('2359', 'HHmm')],
+  //     //   // moments: [],
+  //     //   disabledTime: function (
+  //     //     // currentTime
+  //     //     now,
+  //     //     type
+  //     //   ) {
+  //     //     console.log(now, type);
+  //     //     console.log(now.format('HHmm'), type);
+  //     //     return {
+  //     //       disabledHours: () => {
+  //     //         return [];
+  //     //       },
+  //     //       disabledMinutes: (selectedHour) => {
+  //     //         // console.log(selectedHour);
+  //     //         return [];
+  //     //       },
+  //     //     };
+  //     //   },
+  //     // },
+  //   ]);
+  // }, []);
   return (
     <>
       {values.map((value) => {
@@ -97,13 +139,14 @@ const App = () => {
       })}
       <Button
         onClick={() => {
-          setValues([
-            ...values,
-            {
-              id: uuidv4(),
-              value: [],
-            },
-          ]);
+          addValue();
+          // setValues([
+          //   ...values,
+          //   {
+          //     id: uuidv4(),
+          //     value: [],
+          //   },
+          // ]);
         }}
       >
         新增
