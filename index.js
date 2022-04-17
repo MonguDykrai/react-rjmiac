@@ -11,30 +11,54 @@ const App = () => {
   const [values, setValues] = useState([]);
 
   useEffect(() => {
+    const id = uuidv4();
+    const value = {
+      id,
+      moments: [moment('0000', 'HHmm'), moment('2359', 'HHmm')],
+      disabledTime: function (
+        // currentTime
+        now,
+        type
+      ) {
+        console.log({ id });
+        console.log(now, type);
+        console.log(now.format('HHmm'), type);
+        return {
+          disabledHours: () => {
+            return [];
+          },
+          disabledMinutes: (selectedHour) => {
+            // console.log(selectedHour);
+            return [];
+          },
+        };
+      }.bind({ id }),
+    };
     setValues([
       ...values,
-      {
-        id: uuidv4(),
-        moments: [moment('0000', 'HHmm'), moment('2359', 'HHmm')],
-        // moments: [],
-        disabledTime: (
-          // currentTime
-          now,
-          type
-        ) => {
-          console.log(now, type);
-          console.log(now.format('HHmm'), type);
-          return {
-            disabledHours: () => {
-              return [];
-            },
-            disabledMinutes: (selectedHour) => {
-              // console.log(selectedHour);
-              return [];
-            },
-          };
-        },
-      },
+      value,
+      // {
+      //   id: uuidv4(),
+      //   moments: [moment('0000', 'HHmm'), moment('2359', 'HHmm')],
+      //   // moments: [],
+      //   disabledTime: function (
+      //     // currentTime
+      //     now,
+      //     type
+      //   ) {
+      //     console.log(now, type);
+      //     console.log(now.format('HHmm'), type);
+      //     return {
+      //       disabledHours: () => {
+      //         return [];
+      //       },
+      //       disabledMinutes: (selectedHour) => {
+      //         // console.log(selectedHour);
+      //         return [];
+      //       },
+      //     };
+      //   },
+      // },
     ]);
   }, []);
   return (
