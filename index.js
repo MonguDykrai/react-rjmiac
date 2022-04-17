@@ -50,14 +50,13 @@ const App = () => {
 
   const onChange = (changeValue, id) => {
     console.log(changeValue, id);
-    // const valuesCopy = _.cloneDeep(values);
-    // const findIndex = valuesCopy.findIndex((vc) => vc.id === id);
-    // console.log(valuesCopy[findIndex]);
-    // valuesCopy[findIndex] = {
-    //   ...valuesCopy[findIndex],
-    //   moments: changeValue.map((v) => moment(v)),
-    // };
-    // setValues(valuesCopy);
+    const valuesCopy = _.cloneDeep(values);
+    const findIndex = values.findIndex((v) => v.id === id);
+    valuesCopy[findIndex] = {
+      ...valuesCopy[findIndex],
+      moments: changeValue.map((v) => moment(v)),
+    };
+    setValues(valuesCopy);
   };
 
   return (
@@ -68,17 +67,6 @@ const App = () => {
           <div key={id}>
             <TimePicker.RangePicker
               format="HHmm"
-              // onChange={(changeValue) => {
-              //   const valuesCopy = _.cloneDeep(values);
-              //   const findIndex = valuesCopy.findIndex((vc) => vc.id === id);
-              //   console.log(valuesCopy[findIndex]);
-              //   valuesCopy[findIndex] = {
-              //     ...valuesCopy[findIndex],
-              //     moments: changeValue.map((v) => moment(v)),
-              //   };
-              //   debugger;
-              //   setValues(valuesCopy);
-              // }}
               onChange={(changeValue) => onChange(changeValue, id)}
               value={moments}
               disabledTime={disabledTime}
