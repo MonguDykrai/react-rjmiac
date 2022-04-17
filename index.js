@@ -57,6 +57,9 @@ const App = () => {
               }}
               value={moments}
               disabledTime={disabledTime}
+              onOpenChange={(open) => {
+                console.log({ open });
+              }}
             />
           </div>
         );
