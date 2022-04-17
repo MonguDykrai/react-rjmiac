@@ -11,18 +11,14 @@ const App = () => {
   const [values, setValues] = useState([]);
 
   const addValue = useCallback(
-    (moments = [moment('0330', 'HHmm'), moment('0420', 'HHmm')]) => {
+    (moments = []) => {
       const id = uuidv4();
       const disabledTime = function (
         // currentTime
         now,
         type
       ) {
-        debugger;
         const { id } = this;
-        // console.log({ id });
-        // console.log(now, type);
-        // console.log(now.format('HHmm'), type);
         console.log({
           id,
           formattedTime: now.format('HHmm'),
@@ -52,63 +48,6 @@ const App = () => {
     addValue([moment('0000', 'HHmm'), moment('2359', 'HHmm')]);
   }, []);
 
-  // useEffect(() => {
-  //   // const id = uuidv4();
-  //   // const value = {
-  //   //   id,
-  //   //   moments: [moment('0000', 'HHmm'), moment('2359', 'HHmm')],
-  //   //   disabledTime: function (
-  //   //     // currentTime
-  //   //     now,
-  //   //     type
-  //   //   ) {
-  //   //     const { id } = this;
-  //   //     // console.log({ id });
-  //   //     // console.log(now, type);
-  //   //     // console.log(now.format('HHmm'), type);
-  //   //     console.log({
-  //   //       id,
-  //   //       formattedTime: now.format('HHmm'),
-  //   //       type,
-  //   //     });
-  //   //     return {
-  //   //       disabledHours: () => {
-  //   //         return [];
-  //   //       },
-  //   //       disabledMinutes: (selectedHour) => {
-  //   //         // console.log(selectedHour);
-  //   //         return [];
-  //   //       },
-  //   //     };
-  //   //   }.bind({ id }),
-  //   // };
-  //   setValues([
-  //     ...values,
-  //     value,
-  //     // {
-  //     //   id: uuidv4(),
-  //     //   moments: [moment('0000', 'HHmm'), moment('2359', 'HHmm')],
-  //     //   // moments: [],
-  //     //   disabledTime: function (
-  //     //     // currentTime
-  //     //     now,
-  //     //     type
-  //     //   ) {
-  //     //     console.log(now, type);
-  //     //     console.log(now.format('HHmm'), type);
-  //     //     return {
-  //     //       disabledHours: () => {
-  //     //         return [];
-  //     //       },
-  //     //       disabledMinutes: (selectedHour) => {
-  //     //         // console.log(selectedHour);
-  //     //         return [];
-  //     //       },
-  //     //     };
-  //     //   },
-  //     // },
-  //   ]);
-  // }, []);
   return (
     <>
       {values.map((value) => {
@@ -140,13 +79,6 @@ const App = () => {
       <Button
         onClick={() => {
           addValue();
-          // setValues([
-          //   ...values,
-          //   {
-          //     id: uuidv4(),
-          //     value: [],
-          //   },
-          // ]);
         }}
       >
         新增
