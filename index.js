@@ -48,16 +48,19 @@ const App = () => {
     addValue([moment('0000', 'HHmm'), moment('2359', 'HHmm')]);
   }, []);
 
-  const onChange = (changeValue, id) => {
-    console.log(changeValue, id);
-    const valuesCopy = _.cloneDeep(values);
-    const findIndex = values.findIndex((v) => v.id === id);
-    valuesCopy[findIndex] = {
-      ...valuesCopy[findIndex],
-      moments: changeValue.map((v) => moment(v)),
-    };
-    setValues(valuesCopy);
-  };
+  const onChange = useCallback(
+    (changeValue, id) => {
+      console.log(changeValue, id);
+      const valuesCopy = _.cloneDeep(values);
+      const findIndex = values.findIndex((v) => v.id === id);
+      valuesCopy[findIndex] = {
+        ...valuesCopy[findIndex],
+        moments: changeValue.map((v) => moment(v)),
+      };
+      setValues(valuesCopy);
+    },
+    [values, setValues]
+  );
 
   return (
     <>
