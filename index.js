@@ -16,6 +16,7 @@ const App = () => {
       {
         id: uuidv4(),
         moments: [moment('0000', 'HHmm'), moment('2359', 'HHmm')],
+        // moments: [],
         disabledTime: (
           // currentTime
           now,
