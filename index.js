@@ -48,6 +48,18 @@ const App = () => {
     addValue([moment('0000', 'HHmm'), moment('2359', 'HHmm')]);
   }, []);
 
+  const onChange = (changeValue, id) => {
+    console.log(changeValue, id);
+    // const valuesCopy = _.cloneDeep(values);
+    // const findIndex = valuesCopy.findIndex((vc) => vc.id === id);
+    // console.log(valuesCopy[findIndex]);
+    // valuesCopy[findIndex] = {
+    //   ...valuesCopy[findIndex],
+    //   moments: changeValue.map((v) => moment(v)),
+    // };
+    // setValues(valuesCopy);
+  };
+
   return (
     <>
       {values.map((value) => {
@@ -56,17 +68,18 @@ const App = () => {
           <div key={id}>
             <TimePicker.RangePicker
               format="HHmm"
-              onChange={(changeValue) => {
-                const valuesCopy = _.cloneDeep(values);
-                changeValue = {
-                  ...changeValue,
-                  id,
-                  moments: changeValue.map((v) => moment(v)),
-                };
-                const findIndex = valuesCopy.findIndex((vc) => vc.id === id);
-                valuesCopy[findIndex] = changeValue;
-                setValues(valuesCopy);
-              }}
+              // onChange={(changeValue) => {
+              //   const valuesCopy = _.cloneDeep(values);
+              //   const findIndex = valuesCopy.findIndex((vc) => vc.id === id);
+              //   console.log(valuesCopy[findIndex]);
+              //   valuesCopy[findIndex] = {
+              //     ...valuesCopy[findIndex],
+              //     moments: changeValue.map((v) => moment(v)),
+              //   };
+              //   debugger;
+              //   setValues(valuesCopy);
+              // }}
+              onChange={(changeValue) => onChange(changeValue, id)}
               value={moments}
               disabledTime={disabledTime}
               onOpenChange={(open) => {
